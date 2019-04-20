@@ -3,25 +3,48 @@ Installing Pelican
 
 Pelican currently runs best on |min_python|; earlier versions of Python are not supported.
 
-You can install Pelican via several different methods. The simplest is via Pip_::
+Once Pelican is installed, you can run ``pelican --help`` to see basic usage
+options. For more detail, refer to the :doc:`Publish<publish>` section.
+
+You can install Pelican via several different methods. The simplest is via
+`pip <http://www.pip-installer.org/>`_::
 
     python -m pip install pelican
 
-Or, if you plan on using Markdown::
+Keep in mind that operating systems will often require you to prefix the above
+command with ``sudo`` in order to install Pelican system-wide. **You should
+not do this** as it may break your operating system. In this case you
+can add the ``--user`` flag or try one of the recommended methods below.
 
-    python -m pip install "pelican[markdown]"
+**Recommended method 1:** `pipx <https://github.com/pipxproject/pipx/>`_
 
-(Keep in mind that some operating systems will require you to prefix the above
-command with ``sudo`` in order to install Pelican system-wide.)
+pipx lets you execute binaries from Python packages in isolated environments.
+You can install pipx according to instructions on its  
+`homepage <https://github.com/pipxproject/pipx/>`_. After pipx is installed,
+you can install pelican::
 
-While the above is the simplest method, the recommended approach is to create a
-virtual environment for Pelican via virtualenv_ before installing Pelican.
-Assuming you have virtualenv_ installed, you can then open a new terminal
-session and create a new virtual environment for Pelican::
+    $ pipx install pelican
+    installed package pelican 4.0.1, Python 3.6.7
+    These binaries are now globally available
+     - pelican
+     - pelican-import
+     - pelican-quickstart
+     - pelican-themes
+    done! ✨ 🌟 ✨
 
-    virtualenv ~/virtualenvs/pelican
-    cd ~/virtualenvs/pelican
-    source bin/activate
+To upgrade or uninstall::
+
+    pipx upgrade pelican
+    pipx uninstall pelican
+
+**Recommended method 2:** Virtual Environment
+
+If you prefer to manually manage a Virtual Environment, you can create 
+a virtual environment for Pelican via venv_ (or virtualenv_ if you are 
+using Python2) before installing Pelican.::
+
+    python -m venv ~/virtualenvs/pelican
+    . ~/virtualenvs/pelican/bin/activate
 
 Once the virtual environment has been created and activated, Pelican can be
 installed via ``python -m pip install pelican`` as noted above. Alternatively, if you
@@ -35,8 +58,7 @@ version of Pelican rather than a stable release, use the following command::
 
     python -m pip install -e "git+https://github.com/getpelican/pelican.git#egg=pelican"
 
-Once Pelican is installed, you can run ``pelican --help`` to see basic usage
-options. For more detail, refer to the :doc:`Publish<publish>` section.
+To exit the virtual environment, type ``deactivate``.
 
 Optional packages
 -----------------
@@ -51,6 +73,11 @@ requisite `Typogrify <https://pypi.org/project/typogrify/>`_ library must be
 installed::
 
     python -m pip install typogrify
+
+If you are using pipx, you can inject packages into the pipx-managed virtual
+environment::
+
+    pipx inject pelican Markdown
 
 Dependencies
 ------------
@@ -85,6 +112,10 @@ the latest stable release, you can do so by adding ``--upgrade``::
 If you installed Pelican via distutils or the bleeding-edge method, simply
 perform the same step to install the most recent version.
 
+If you installed with pipx::
+
+    pipx upgrade pelican
+
 Kickstart your site
 -------------------
 
@@ -118,5 +149,5 @@ content)::
 The next step is to begin to adding content to the *content* folder that has
 been created for you.
 
-.. _Pip: https://pip.pypa.io/
 .. _virtualenv: https://virtualenv.pypa.io/en/latest/
+.. _venv: https://docs.python.org/3/library/venv.html
